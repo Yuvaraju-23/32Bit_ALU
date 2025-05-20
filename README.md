@@ -34,10 +34,34 @@ A Blank Document opens up into which the following source code can be typed down
 
 ## Source Code – Using Case Statement :
 
-module alu_32bit_case(y, a, b, f); input [31:0] a; input [31:0] b; input [2:0] f; output reg [31:0] y;
-always @(*) begin case(f) 3'b000: y = a & b; // AND 3'b001: y = a | b; // OR 3'b010: y = ~(a & b); //
-NAND 3'b011: y = ~(a | b); // NOR 3'b100: y = a + b; // ADD 3'b101: y = a - b; // SUB 3'b110: y = a * b;
-// MUL default: y = 32'bx; // Undefined endcase end
+module alu_32bit_case(y, a, b, f);
+
+input [31:0] a; 
+
+input [31:0] b;
+
+input [2:0] f;
+
+output reg [31:0] y;
+
+
+always @(*) begin case(f) 3'b000: y = a & b;
+
+// AND 3'b001: y = a | b; 
+
+// OR 3'b010: y = ~(a & b);
+
+//NAND 3'b011: y = ~(a | b); 
+
+// NOR 3'b100: y = a + b; 
+
+// ADD 3'b101: y = a - b;
+
+// SUB 3'b110: y = a * b;
+// MUL default: y = 32'bx;
+
+// Undefined endcase end
+
 endmodule
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
@@ -49,25 +73,45 @@ Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.v
 ## Test Bench :
 
 module test_alu_32bit_case;
+
 reg [31:0] a; reg [31:0] b; reg [2:0] f; wire [31:0] y;
+
 // Instantiate the ALU module alu_32bit_case uut ( .y(y), .a(a), .b(b), .f(f) );
+
 initial begin // Test AND a = 32'hAAAAAAAA; b = 32'h55555555; f = 3'b000; #10;
+
 // Test OR
+
 a = 32'hAAAAAAAA; b = 32'h55555555; f = 3'b001; #10;
+
 // Test NAND
+
 a = 32'hFFFFFFFF; b = 32'h00000000; f = 3'b010; #10;
+
 // Test NOR
+
 a = 32'h00000000; b = 32'h00000000; f = 3'b011; #10;
+
 // Test ADD
+
 a = 32'd100; b = 32'd25; f = 3'b100; #10;
+
 // Test SUB
+
 a = 32'd100; b = 32'd25; f = 3'b101; #10;
+
 // Test MUL
+
 a = 32'd10; b = 32'd3; f = 3'b110; #10;
+
 // Test default
+
 f = 3'b111; #10;
+
 end
+
 endmodule
+
 
 Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
